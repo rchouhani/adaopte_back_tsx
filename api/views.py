@@ -4,12 +4,12 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User
+from .models import Users
 from .serializer import UserSerializer
 
 @api_view(['GET'])
 def get_users(request):
-    users = User.objects.all()
+    users = Users.objects.all()
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
@@ -24,8 +24,8 @@ def create_user(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def user_detail(request, pk):
     try: 
-        user = User.objects.get(pk=pk)
-    except User.DoesNotExist:
+        user = Users.objects.get(pk=pk)
+    except Users.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
     if request.method == 'GET':

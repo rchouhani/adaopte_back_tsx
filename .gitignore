@@ -4,7 +4,7 @@
 *$py.class
 
 # Environnements virtuels
-env/
+.env
 venv/
 
 # Django stuff:

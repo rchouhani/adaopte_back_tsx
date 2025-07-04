@@ -117,4 +117,3 @@ INSERT INTO petting_dates (user_id, pet_id, appointment, duration_minutes) VALUE
 
 INSERT INTO adoptions (pet_id, user_id, adoption_date) VALUES 
     (2, 2, now());
-

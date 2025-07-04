@@ -1,4 +1,25 @@
-.env
+# Python cache
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Environnements virtuels
+env/
 venv/
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+
+# VSCode
 .vscode/
-__pycache__/
+
+# Mac OS
+.DS_Store
+
+# Migrations (facultatif, selon les préférences)
+*/migrations/*.py
+!*/migrations/__init__.py

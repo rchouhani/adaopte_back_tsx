@@ -118,3 +118,45 @@ INSERT INTO petting_dates (user_id, pet_id, appointment, duration_minutes) VALUE
 INSERT INTO adoptions (pet_id, user_id, adoption_date) VALUES 
     (2, 2, now());
 
+-- SEEDING VIA PYTHON DJANGO : 
+
+-- Création d'une ligne dans "Users" :
+{
+"birthdate": "1990-08-22",
+"firstname": "Add",
+"lastname": "Option",
+"password": "addoption",
+"email": "add@option.com",
+"phone": "0607080901",
+"city": "Paris",
+"zipcode": "75010",
+"motivation": "J'ai été adoptée un jour", 
+"volunteer": "False",
+"adoptant": "True",
+"availability_id": "4"
+}
+
+-- Création d'une ligne dans "Pets" :
+{
+"pet_name": "Charlie",
+"status_id": "1",
+"birthyear": "2020-01-01",
+"breed": "Pug",
+"pet_type": "Chien",
+"city": "Lille",
+"zipcode": "59000",
+"pet_description": "Charlie est un petit chien calme et affectueux qui adore les balades tranquilles et les caresses sur le canapé.",
+"image_url": "/images/charlesdeluvio-K4mSJ7kc0As-unsplash.jpg"
+}
+
+{
+"pet_name": "Mia",
+"status_id": "1",
+"birthyear": "2023-01-01",
+"breed": "Chat noir et blanc",
+"pet_type": "Chat",
+"city": "Strasbourg",
+"zipcode": "67000",
+"pet_description": "Mia est une boule de tendresse curieuse et joueuse, toujours prête à ronronner près de vous.",
+"image_url": "/images/manja-vitolic-gKXKBY-C-Dk-unsplash.jpg"
+}

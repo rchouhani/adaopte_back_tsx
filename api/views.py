@@ -23,7 +23,7 @@ def create_user(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 def user_detail(request, pk):
     try: 
         user = Users.objects.get(pk=pk)
@@ -36,6 +36,13 @@ def user_detail(request, pk):
     
     elif request.method == 'PUT':
         serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'PATCH':
+        serializer = UserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -63,7 +70,7 @@ def create_pet_statuses(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PATCH', 'DELETE'])
 def pet_statuses_detail(request, pk):
     try: 
         pet_statuses = Pets_Statuses.objects.get(pk=pk)
@@ -74,8 +81,8 @@ def pet_statuses_detail(request, pk):
         serializer = PetStatusesSerializer(pet_statuses)
         return Response(serializer.data)
     
-    elif request.method == 'PUT':
-        serializer = PetStatusesSerializer(pet_statuses, data=request.data)
+    elif request.method == 'PATCH':
+        serializer = PetStatusesSerializer(pet_statuses, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -104,7 +111,7 @@ def create_admins(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PATCH', 'DELETE'])
 def admins_detail(request, pk):
     try: 
         admins = Admins.objects.get(pk=pk)
@@ -115,8 +122,8 @@ def admins_detail(request, pk):
         serializer = AdminsSerializer(admins)
         return Response(serializer.data)
     
-    elif request.method == 'PUT':
-        serializer = AdminsSerializer(admins, data=request.data)
+    elif request.method == 'PATCH':
+        serializer = AdminsSerializer(admins, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -145,7 +152,7 @@ def create_availabilities(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PATCH', 'DELETE'])
 def availabilities_detail(request, pk):
     try: 
         availabilities = Availabilities.objects.get(pk=pk)
@@ -156,8 +163,8 @@ def availabilities_detail(request, pk):
         serializer = AvailabilitiesSerializer(availabilities)
         return Response(serializer.data)
     
-    elif request.method == 'PUT':
-        serializer = AvailabilitiesSerializer(availabilities, data=request.data)
+    elif request.method == 'PATCH':
+        serializer = AvailabilitiesSerializer(availabilities, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -186,7 +193,7 @@ def create_donations(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PATCH', 'DELETE'])
 def donations_detail(request, pk):
     try: 
         donations = Donations.objects.get(pk=pk)
@@ -197,8 +204,8 @@ def donations_detail(request, pk):
         serializer = DonationsSerializer(donations)
         return Response(serializer.data)
     
-    elif request.method == 'PUT':
-        serializer = DonationsSerializer(donations, data=request.data)
+    elif request.method == 'PATCH':
+        serializer = DonationsSerializer(donations, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -227,7 +234,7 @@ def create_pets(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PATCH', 'DELETE'])
 def pets_detail(request, pk):
     try: 
         pets = Pets.objects.get(pk=pk)
@@ -238,8 +245,8 @@ def pets_detail(request, pk):
         serializer = PetsSerializer(pets)
         return Response(serializer.data)
     
-    elif request.method == 'PUT':
-        serializer = PetsSerializer(pets, data=request.data)
+    elif request.method == 'PATCH':
+        serializer = PetsSerializer(pets, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -268,7 +275,7 @@ def create_petting_dates(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PATCH', 'DELETE'])
 def petting_dates_detail(request, pk):
     try: 
         petting_dates = PettingDatesSerializer.objects.get(pk=pk)
@@ -279,8 +286,8 @@ def petting_dates_detail(request, pk):
         serializer = PettingDatesSerializer(petting_dates)
         return Response(serializer.data)
     
-    elif request.method == 'PUT':
-        serializer = PettingDatesSerializer(petting_dates, data=request.data)
+    elif request.method == 'PATCH':
+        serializer = PettingDatesSerializer(petting_dates, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -309,7 +316,7 @@ def create_adoptions(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PATCH', 'DELETE'])
 def adoptions_detail(request, pk):
     try: 
         adoptions = AdoptionsSerializer.objects.get(pk=pk)
@@ -320,8 +327,8 @@ def adoptions_detail(request, pk):
         serializer = AdoptionsSerializer(adoptions)
         return Response(serializer.data)
     
-    elif request.method == 'PUT':
-        serializer = AdoptionsSerializer(adoptions, data=request.data)
+    elif request.method == 'PATCH':
+        serializer = AdoptionsSerializer(adoptions, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

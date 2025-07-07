@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-lr)g0uyoh7rqdt_0lpae+=&lad(mek&dh02(f2c++e+)s-_)%@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -116,6 +116,14 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# PASSWORD_HASHERS = [
+#     "django.contrib.auth.hashers.Argon2PasswordHasher",
+#     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+#     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+#     "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+#     "django.contrib.auth.hashers.ScryptPasswordHasher",
+# ]
 
 
 # Internationalization

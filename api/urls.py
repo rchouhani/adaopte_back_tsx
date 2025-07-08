@@ -26,6 +26,7 @@ urlpatterns = [
     path('donations/<int:pk>', donations_detail, name='donations_detail'),
     
     path('pets/', get_pets, name='get_pets'),
+    path('pets_available/', get_pets_available, name='get_pets_available'),
     path('pets/create/', create_pets, name='create_pets'),
     path('pets/<int:pk>', pets_detail, name='pets_detail'),
         

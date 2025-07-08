@@ -246,6 +246,11 @@ def get_pets(request):
     serializer = PetsSerializer(pets, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def get_pets_available(request):
+    pets = Pets.objects.filter(status_id=1)
+    serializer = PetsSerializer(pets, many=True)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def create_pets(request):

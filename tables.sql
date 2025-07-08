@@ -160,3 +160,18 @@ INSERT INTO adoptions (pet_id, user_id, adoption_date) VALUES
 "pet_description": "Mia est une boule de tendresse curieuse et joueuse, toujours prête à ronronner près de vous.",
 "image_url": "/images/manja-vitolic-gKXKBY-C-Dk-unsplash.jpg"
 }
+
+-- Création d'une ligne dans "Petting_dates" :
+{
+"user_id": "1",
+"pet_id": "1",
+"appointment": "2025-07-13T16:00",
+"duration_minutes": "60"
+}
+
+-- Création d'une ligne dans "Adoptions" :
+{
+"user_id": "2",
+"pet_id": "2",
+"adoptions_date": "2025-07-05"
+}

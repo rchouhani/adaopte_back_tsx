@@ -65,7 +65,7 @@ class Pets(models.Model):
     city =  models.CharField(max_length=250)
     zipcode =  models.CharField(max_length=250)
     pet_description = models.CharField(max_length=1024)
-    image_url = models.CharField(max_length=250)
+    image_url = models.CharField(max_length=1024)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 

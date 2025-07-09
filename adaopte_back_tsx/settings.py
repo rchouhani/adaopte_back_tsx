@@ -31,7 +31,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'adaopterofated.vercel.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'adaopterofated.vercel.app', 'adaopte-back-1x677owet-rchouhanis-projects.vercel.app']
 
 
 # Application definition

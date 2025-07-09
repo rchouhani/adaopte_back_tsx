@@ -31,7 +31,16 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'adaopterofated.vercel.app', 'adaopte-back-1x677owet-rchouhanis-projects.vercel.app']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.vercel.app',  # Tous les sous-domaines de vercel
+]
+
+vercel_url = os.getenv("VERCEL_URL")
+if vercel_url:
+    ALLOWED_HOSTS.append(vercel_url.replace("https://", "").replace("http://", ""))
+
 
 
 # Application definition
@@ -69,7 +78,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://127.0.0.1:8000"
+    "http://127.0.0.1:8000", 
 ]
 
 ROOT_URLCONF = 'adaopte_back_tsx.urls'

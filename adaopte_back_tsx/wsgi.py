@@ -13,6 +13,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'vercel_app.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'adaopte_back_tsx.settings')
+
 
 application = get_wsgi_application()

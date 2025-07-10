@@ -22,9 +22,11 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class DonationsSerializer(serializers.ModelSerializer):
+    user_id = UserSerializer()
+
     class Meta:
         model = Donations
-        fields = '__all__'
+        fields = ['id', 'amount_euros', 'user_id']
 
 class PetsSerializer(serializers.ModelSerializer):
     class Meta:

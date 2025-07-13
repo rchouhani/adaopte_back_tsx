@@ -17,16 +17,21 @@ class AvailabilitiesSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
+    availability_id = AvailabilitiesSerializer()
+
     class Meta:
         model = Users
         fields = '__all__'
 
 class DonationsSerializer(serializers.ModelSerializer):
-    user_id = UserSerializer()
+    # Je récupère les données de la table Users mises dans UserSerializer à
+    # la place de user_id et je le renomme "user" plutôt que "user_id"
+    user = UserSerializer(source = 'user_id')  
 
     class Meta:
         model = Donations
-        fields = ['id', 'amount_euros', 'user_id']
+        # fields = les champs que je veux récupérer (au lieu de tout récupérer)
+        fields = ['id', 'amount_euros', 'user']
 
 class PetsSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,33 +1,33 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework.permissions import IsAuthenticated
+# from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.views import APIView
-from .serializers import RegisterSerializer
+# from rest_framework.views import APIView
+# from .serializers import RegisterSerializer
 from .models import Users, Pets_Statuses, Admins, Availabilities, Donations, Pets, Petting_Dates, Adoptions
 from .serializer import UserSerializer, PetStatusesSerializer, AdminsSerializer, AvailabilitiesSerializer, DonationsSerializer, PetsSerializer, PettingDatesSerializer, AdoptionsSerializer
 
 
 # pour l'autenthification : 
 
-class ProtectedView(APIView):
-    permission_classes = [IsAuthenticated]
+# class ProtectedView(APIView):
+#     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        return Response({"message": f"Bonjour {request.user.firstname}"})
+#     def get(self, request):
+#         return Response({"message": f"Bonjour {request.user.firstname}"})
 
-# Pour le LOG IN :
+# # Pour le LOG IN :
 
-class RegisterView(APIView):
-    def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "Utilisateur créé"}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# class RegisterView(APIView):
+#     def post(self, request):
+#         serializer = RegisterSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({"message": "Utilisateur créé"}, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Pour le modèle USERS : 
 

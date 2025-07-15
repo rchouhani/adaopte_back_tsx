@@ -37,6 +37,8 @@ ALLOWED_HOSTS = [
     '.vercel.app',  # Tous les sous-domaines de vercel
 ]
 
+
+
 vercel_url = os.getenv("VERCEL_URL")
 if vercel_url:
     ALLOWED_HOSTS.append(vercel_url.replace("https://", "").replace("http://", ""))
@@ -55,16 +57,17 @@ INSTALLED_APPS = [
     'rest_framework',
     'api.apps.ApiConfig',
     'corsheaders',
-    'rest_framework_simplejwt',
+    #'rest_framework_simplejwt',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     )
+# }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -72,7 +75,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware'
 ]
 
@@ -80,6 +82,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:8000", 
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'adaopte_back_tsx.urls'
 

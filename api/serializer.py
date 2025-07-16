@@ -4,7 +4,7 @@ from .models import Users, Pets_Statuses, Admins, Availabilities, Donations, Pet
 class PetStatusesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pets_Statuses
-        fields = '__all__'
+        fields = 'status_title'
 
 class AdminsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,6 +34,7 @@ class DonationsSerializer(serializers.ModelSerializer):
         fields = ['id', 'amount_euros', 'user']
 
 class PetsSerializer(serializers.ModelSerializer):
+    status = PetStatusesSerializer(source = 'status_id')
     class Meta:
         model = Pets
         fields = '__all__'

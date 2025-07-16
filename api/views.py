@@ -1,16 +1,84 @@
 from django.shortcuts import render
 
 # Create your views here.
-# from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-# from rest_framework.views import APIView
-# from .serializers import RegisterSerializer
 from .models import Users, Pets_Statuses, Admins, Availabilities, Donations, Pets, Petting_Dates, Adoptions
 from .serializer import UserSerializer, PetStatusesSerializer, AdminsSerializer, AvailabilitiesSerializer, DonationsSerializer, PetsSerializer, PettingDatesSerializer, AdoptionsSerializer
+# for Log In
+from rest_framework.views import APIView
+from .models import User  # ton CustomUser
+from django.contrib.auth import get_user_model, authenticate
+# for Tokens
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import MyTokenObtainPairSerializer
+from django.contrib.auth import authenticate
+from rest_framework import serializers
+import jwt
+import datetime
+from django.conf import settings
+
+User = get_user_model()
+
+class RegisterView(APIView):
+    
+    def post(self, request):
+        print("🔍 Payload reçu :", request.data)
+        email = request.data.get('email')
+        password = request.data.get('password')
+        name = request.data.get('name')
+        
+        # name = f"{firstname} {lastname}".strip()
+
+        if not email or not password:
+            return Response({"error": "Email et mot de passe requis."}, status=400)
+
+        if User.objects.filter(email=email).exists():
+            return Response({"error": "Cet email est déjà utilisé."}, status=400)
+
+        user = User.objects.create_user(email=email, password=password, name=name)
+        return Response({"message": "Utilisateur créé avec succès."}, status=status.HTTP_201_CREATED)
 
 
+
+
+class LoginView(APIView):
+    def post(self, request):
+        email = request.data.get("email")
+        password = request.data.get("password")
+
+        user = authenticate(request, username=email, password=password)
+        if user is None:
+            raise serializers.ValidationError("Email ou mot de passe incorrect")
+
+        # Générer un token JWT
+        payload = {
+            "user_id": user.id,
+            "email": user.email,
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=24),
+            "iat": datetime.datetime.utcnow(),
+        }
+
+        token = jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")
+
+        response = Response({"message": "Connexion réussie"})
+        response.set_cookie(
+            key="jwt",
+            value=token,
+            httponly=True,
+            samesite="Lax",  # 'Strict' si tu veux bloquer les requêtes cross-site
+            secure=False,     # True en prod HTTPS, False en dev local HTTP
+            max_age=24*3600,  # expiration 24h
+        )
+        return response
+
+
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+    
 # pour l'autenthification : 
 
 # class ProtectedView(APIView):
@@ -19,15 +87,6 @@ from .serializer import UserSerializer, PetStatusesSerializer, AdminsSerializer,
 #     def get(self, request):
 #         return Response({"message": f"Bonjour {request.user.firstname}"})
 
-# # Pour le LOG IN :
-
-# class RegisterView(APIView):
-#     def post(self, request):
-#         serializer = RegisterSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response({"message": "Utilisateur créé"}, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Pour le modèle USERS : 
 

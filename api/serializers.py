@@ -1,17 +1,23 @@
-# from rest_framework import serializers
-# from django.contrib.auth.models import User
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import authenticate
+from rest_framework import serializers
 
-# class RegisterSerializer(serializers.ModelSerializer):
-#     password = serializers.CharField(write_only=True, required=True)
-    
-#     class Meta:
-#         model = User
-#         fields = ['username', 'email', 'password']
-    
-#     def create(self, validated_data):
-#         user = User.objects.create_user(
-#             username=validated_data['username'],
-#             email=validated_data['email'],
-#             password=validated_data['password']
-#         )
-#         return user
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        # Ajouter des claims personnalisés ici si besoin
+        return token
+
+    def validate(self, attrs):
+        # On veut s'authentifier avec email au lieu de username
+        email = attrs.get("email")
+        password = attrs.get("password")
+
+        user = authenticate(username=email, password=password)  # username=email car AUTH_USER_MODEL a email comme USERNAME_FIELD
+
+        if user is None:
+            raise serializers.ValidationError("Email ou mot de passe incorrect")
+
+        data = super().validate({"username": user.username, "password": password})
+        return data

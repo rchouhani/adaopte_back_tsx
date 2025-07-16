@@ -26,7 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = True
+# os.getenv('DEBUG', 'False') == 'True'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -34,7 +35,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '.vercel.app',  # Tous les sous-domaines de vercel
+    '.vercel.app',
 ]
 
 
@@ -60,11 +61,11 @@ INSTALLED_APPS = [
     #'rest_framework_simplejwt',
 ]
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     )
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -133,6 +134,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'api.User'
 
 # PASSWORD_HASHERS = [
 #     "django.contrib.auth.hashers.Argon2PasswordHasher",

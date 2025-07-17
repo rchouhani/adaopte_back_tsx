@@ -13,7 +13,7 @@ from django.contrib.auth import get_user_model, authenticate
 # for Tokens
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import MyTokenObtainPairSerializer
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 
 from rest_framework import serializers
@@ -51,9 +51,12 @@ class LoginView(APIView):
         password = request.data.get("password")
 
         user = authenticate(request, username=email, password=password)
+        print(user)
         if user is None:
             raise serializers.ValidationError("Email ou mot de passe incorrect")
-
+        else:
+            login(request, user)
+        
         # Générer un token JWT
         payload = {
             "user_id": user.id,
@@ -73,8 +76,14 @@ class LoginView(APIView):
             secure=False,     # True en prod HTTPS, False en dev local HTTP
             max_age=24*3600,  # expiration 24h
         )
+            
+        
         return response
 
+
+class LogoutView(APIView):
+    def logout(self, request):
+        logout(request)
 
 
 
@@ -93,11 +102,13 @@ class MyTokenObtainPairView(TokenObtainPairView):
 # Pour le modèle USERS : 
 
 @api_view(['GET'])
-@login_required()
 def get_users(request):
-    users = Users.objects.all()
-    serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
+    print(request.user.is_authenticated)
+    if request.user.is_authenticated:
+        users = Users.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+    else: return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['POST'])
 def create_user(request):

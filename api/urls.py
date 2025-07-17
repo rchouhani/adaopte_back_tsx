@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import get_users, create_user, user_detail, get_pet_statuses, create_pet_statuses, pet_statuses_detail, get_admins, create_admins, admins_detail, get_availabilities, create_availabilities, availabilities_detail, get_donations, create_donations, donations_detail, get_pets, get_pets_available, create_pets, pets_detail, get_petting_dates, create_petting_dates, petting_dates_detail, get_adoptions, create_adoptions, adoptions_detail
-from .views import RegisterView, LoginView
+from .views import RegisterView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 urlpatterns = [

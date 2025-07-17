@@ -14,6 +14,8 @@ from django.contrib.auth import get_user_model, authenticate
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import MyTokenObtainPairSerializer
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
+
 from rest_framework import serializers
 import jwt
 import datetime
@@ -91,6 +93,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 # Pour le modèle USERS : 
 
 @api_view(['GET'])
+@login_required()
 def get_users(request):
     users = Users.objects.all()
     serializer = UserSerializer(users, many=True)
@@ -104,18 +107,14 @@ def create_user(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
+@api_view(['PUT', 'PATCH', 'DELETE'])
 def user_detail(request, pk):
     try: 
         user = Users.objects.get(pk=pk)
     except Users.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
-    if request.method == 'GET':
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
-    
-    elif request.method == 'PUT':
+    if request.method == 'PUT':
         serializer = UserSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()

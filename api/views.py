@@ -4,22 +4,22 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Users, Pets_Statuses, Admins, Availabilities, Donations, Pets, Petting_Dates, Adoptions
+from .models import Users, Pets_Statuses, Admins, Availabilities, Donations, Pets, Petting_Dates, Adoptions, User
 from .serializer import UserSerializer, PetStatusesSerializer, AdminsSerializer, AvailabilitiesSerializer, DonationsSerializer, PetsSerializer, PettingDatesSerializer, AdoptionsSerializer
 # for Log In
 from rest_framework.views import APIView
-from .models import User  # ton CustomUser
-from django.contrib.auth import get_user_model, authenticate
 # for Tokens
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import MyTokenObtainPairSerializer
-from django.contrib.auth import authenticate, logout, login
+from django.contrib.auth import authenticate, logout, login, get_user_model
 from django.contrib.auth.decorators import login_required
 
 from rest_framework import serializers
 import jwt
 import datetime
 from django.conf import settings
+
+from login_required import login_not_required
 
 User = get_user_model()
 
@@ -44,7 +44,7 @@ class RegisterView(APIView):
 
 
 
-
+@login_not_required
 class LoginView(APIView):
     def post(self, request):
         email = request.data.get("email")
@@ -66,7 +66,7 @@ class LoginView(APIView):
         }
 
         token = jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")
-
+        print('🥦', token)
         response = Response({"message": "Connexion réussie"})
         response.set_cookie(
             key="jwt",
@@ -103,7 +103,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 @api_view(['GET'])
 def get_users(request):
-    print(request.user.is_authenticated)
+    print('🎲🎲🎲', request.user.is_authenticated)
     if request.user.is_authenticated:
         users = Users.objects.all()
         serializer = UserSerializer(users, many=True)

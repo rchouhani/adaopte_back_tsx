@@ -87,7 +87,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://adaopte-rofated.vercel.app",
 ]
 
-CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'adaopte_back_tsx.urls'
 

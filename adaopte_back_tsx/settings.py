@@ -36,6 +36,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '.vercel.app',
+    
 ]
 
 
@@ -58,7 +59,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'api.apps.ApiConfig',
     'corsheaders',
-    #'rest_framework_simplejwt',
 ]
 
 REST_FRAMEWORK = {
@@ -87,7 +87,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000", 
 ]
 
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = False
 
 ROOT_URLCONF = 'adaopte_back_tsx.urls'
 

@@ -26,8 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = True
-# os.getenv('DEBUG', 'False') == 'True'  à garder pour le déploiement vercel
+# DEBUG = True
+os.getenv('DEBUG', 'False') == 'True' # à garder pour le déploiement vercel
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -139,15 +139,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'api.User'
-
-# PASSWORD_HASHERS = [
-#     "django.contrib.auth.hashers.Argon2PasswordHasher",
-#     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
-#     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
-#     "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
-#     "django.contrib.auth.hashers.ScryptPasswordHasher",
-# ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
